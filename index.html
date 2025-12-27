@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workshop Reminder</title>
+</head>
+
+<body style="text-align:center; font-family:Arial; margin-top:100px;">
+
+    <h2>Workshop Reminder</h2>
+
+    <input type="text" id="workshop" placeholder="Workshop Name"><br><br>
+
+    <input type="datetime-local" id="time"><br><br>
+
+    <button onclick="setReminder()">Set Reminder</button>
+
+    <p id="msg"></p>
+
+    <script>
+        function setReminder() {
+            var name = document.getElementById("workshop").value;
+            var time = document.getElementById("time").value;
+
+            if (name === "" || time === "") {
+                alert("Please fill all fields");
+                return;
+            }
+
+            var reminderTime = new Date(time).getTime();
+
+            document.getElementById("msg").innerHTML =
+                "Reminder set for: " + new Date(time).toLocaleString();
+
+            var check = setInterval(function () {
+                var now = new Date().getTime();
+
+                if (now >= reminderTime) {
+                    alert("⏰ Workshop Reminder: " + name);
+                    clearInterval(check);
+                }
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
